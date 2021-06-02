@@ -28,7 +28,7 @@ public class AppMain {
 
 		for (Drawable temp : s) {
 			temp.draw(); // temp - Rect Circle ,Tir라고 생각하셈.
-			if (temp instanceof Rect) {
+			if (temp instanceof Rect) { //instanceof가 타입인지 검사하는것
 			((Rect) temp).area(); // 부모타입을 자식타입으로 강제형변환
 			((Rect) temp).print();
 		} else if (temp instanceof Circle) {
