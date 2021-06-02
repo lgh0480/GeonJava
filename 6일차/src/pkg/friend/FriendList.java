@@ -14,7 +14,7 @@ public class FriendList implements FriendAccess {
 
 	@Override
 	public void insert(Friend friend) {
-		// TODO Auto-generated method stub
+		friends.set(0, friend);
 		
 	}
 
@@ -26,14 +26,16 @@ public class FriendList implements FriendAccess {
 
 	@Override
 	public void delete(String name) {
-		// TODO Auto-generated method stub
+		friends.remove(0);
 		
 	}
 
-	@Override
+	//전체조회
 	public void selectAll() {
 		System.out.println("FriendList");
-		
+		for(Friend f: friends) {
+			 friends.size();
+		}
 	}
 
 	@Override

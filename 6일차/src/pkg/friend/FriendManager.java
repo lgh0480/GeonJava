@@ -35,7 +35,7 @@ public class FriendManager implements FriendAccess {
 	}
 
 	@Override
-	public Friend selectOne(Object key) {
+	public Friend selectOne(String name) {
 		return null;
 	}
 		

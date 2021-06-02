@@ -1,4 +1,4 @@
-1package co.yedam.app.bookrent.complete;
+package co.yedam.app.bookrent.complete;
 
 public class Member {
 	String name;
