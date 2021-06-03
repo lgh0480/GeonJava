@@ -48,4 +48,14 @@ public class Robot {
 	public void print() { // public으로 접근 제어자를 설정해야됩니다.
 		System.out.printf("arm:%d leg:%d name:%s",arm,leg,name);
 	}
+	@Override
+	public boolean equals(Object obj) {
+		Robot r2 = ((Robot)obj);
+		return r2.arm == this.arm && r2.leg == this.leg;
+	}
+	@Override
+	public String toString() {
+		return ""
+				+ "arm :" + arm + "  |  " + " leg :" + leg;
+	}
 }

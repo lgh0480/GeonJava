@@ -1,4 +1,4 @@
-package pkg.friend;
+ package pkg.friend;
 
 import pkg.Friend;
 

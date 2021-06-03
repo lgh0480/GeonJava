@@ -12,28 +12,36 @@ public class FriendList implements FriendAccess {
 		friends = new ArrayList<Friend>();   //인터페이스는 객체 생성 안됨 
 	}
 
-	@Override
+	//삽입
 	public void insert(Friend friend) {
-		// TODO Auto-generated method stub
-		
+		friends.add(friend);
 	}
 
 	@Override
 	public void update(Friend friend) {
 		// TODO Auto-generated method stub
-		friends.add(friend);
+	
 	}
 
 	@Override
 	public void delete(String name) {
 		// TODO Auto-generated method stub
-		
+		for(Friend f: friends) {
+			if(f.getName().equals(name)) { //
+				friends.remove(f);
+			}
+			
+		}
 	}
 
 	@Override
 	public void selectAll() {
 		System.out.println("FriendList");
-		
+		for(Friend f: friends) {
+			System.out.printf("%10s %10s %10s\n", f.getGubun(),f.getName(),f.getTel());
+			
+		}
+		System.out.println("Friend List out");
 	}
 
 	@Override

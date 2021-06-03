@@ -30,17 +30,16 @@ public class MemberService {
 	void printList() {
 		for (int i = 0; i < cnt; i++) {
 			System.out.println(members[i]);
-			for (int i = 0; i < empNum; i++) {
-				System.out.print(i + "\t");
-				System.out.print(employees[i].employeeId + "\t");
-				System.out.print(employees[i].name + "\t");
-				System.out.print(employees[i].departmentId + "\t");
-				System.out.print(employees[i].salary + "\t");
-				System.out.println(employees[i].email + "\t");
-			
+			System.out.print(members[i]. + "\t");
+			System.out.print(members[i].name + "\t");
+			System.out.print(members[i].departmentId + "\t");
+			System.out.print(members[i].salary + "\t");
+			System.out.println(members[i].email + "\t");
+
 		}
 
 	}
+
 	void printMember(int i) {
 		System.out.println(members[i].id);
 		System.out.println(members[i].name);
@@ -54,13 +53,14 @@ public class MemberService {
 		System.out.print(" 번호입력하시오: ");
 		num = scanner.nextInt();
 		for (int i = 0; i < cnt; i++) {
-			if(num == i) {
+			if (num == i) {
 				printMember(num);
-			
+
 			}
 		}
 
 	}
+
 	void Idsearch() {
 		String numId;
 		System.out.print("조회할 id를 입력하시오: ");
