@@ -14,7 +14,12 @@ public class FriendList implements FriendAccess {
 
 	//삽입
 	public void insert(Friend friend) {
+
 		friends.add(friend);
+
+		friends.set(0, friend);
+		
+
 	}
 
 	@Override
@@ -25,6 +30,7 @@ public class FriendList implements FriendAccess {
 
 	@Override
 	public void delete(String name) {
+
 		// TODO Auto-generated method stub
 		for(Friend f: friends) {
 			if(f.getName().equals(name)) { //
@@ -32,16 +38,24 @@ public class FriendList implements FriendAccess {
 			}
 			
 		}
-	}
 
-	@Override
+		friends.remove(0);
+		
+
+
+	//전체조회
 	public void selectAll() {
 		System.out.println("FriendList");
 		for(Friend f: friends) {
+
 			System.out.printf("%10s %10s %10s\n", f.getGubun(),f.getName(),f.getTel());
 			
 		}
 		System.out.println("Friend List out");
+
+			 friends.size();
+		}
+
 	}
 
 	@Override
