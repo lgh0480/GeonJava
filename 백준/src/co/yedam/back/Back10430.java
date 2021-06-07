@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class back10430 {
+public class Back10430 {
 
 	public static void main(String[] args) throws IOException {
 
@@ -23,7 +23,7 @@ public class back10430 {
 		int c = Integer.parseInt(st.nextToken());
 
 		System.out.println((a + b) % c);
-		System.out.println((a % c) + (b % c) % c);
+		System.out.println(((a % c) + (b % c)) % c);
 		System.out.println((a * b) % c);
 		System.out.println((a % c) * (b % c) % c);
 
