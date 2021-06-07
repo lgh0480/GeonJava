@@ -79,10 +79,12 @@ public class FriendList implements FriendAccess {
 	@Override
 	public Friend selectOne(String name) {
 		for (Friend f : friends) {
-			if (f.getName().equals(name)) { // contains
+			if (f.getName().contains(name)) { // contains
 				return f;
 			}
+
 		}
+		
 		return null;
 	}
 	public Friend findTel(String Tel) {

@@ -102,7 +102,7 @@ public class FriendGuiApp extends JFrame {
 	// 등록
 	public void insert() {
 		Friend friend = new Friend();
-		friend.setGubun(txtGubun.getText());
+		friend.setGubun(txtGubun.getText()); //구분에 있는 텍스트를 가져오겠다
 		friend.setName(txtName.getText());
 		friend.setTel(txtTel.getText());
 		friendList.insert(friend);
@@ -118,13 +118,13 @@ public class FriendGuiApp extends JFrame {
 
 	// 삭제
 	public void delete() {
-		String name = txtTel.getText();
+		String name = txtName.getText();
 		friendList.delete(name);
 	}
 
 	// 이름검색
 	public void findName() {
-		String name = txtTel.getText();
+		String name = txtName.getText();
 		Friend friend = friendList.selectOne(name);
 		txtGubun.setText(friend.getGubun());
 		txtTel.setText(friend.getTel());
