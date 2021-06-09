@@ -1,5 +1,5 @@
 package co.Book.access;
-
+//등록과 조회만 하는것
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,15 +19,15 @@ public class BookList extends BookAccess {
 
 	@Override
 	public List<Book> findName(String name) {
+		List<Book> bookss = new ArrayList<Book>();
 
 		for (Book b : books) {
 			if (b.getName().contains(name)) {
-				ArrayList<Book> bookss = new ArrayList<Book>();
-				return bookss;
+				
 
 			}
 		}
-		return null;
+		return bookss;
 	}
 
 }

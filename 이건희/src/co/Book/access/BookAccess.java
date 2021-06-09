@@ -1,5 +1,5 @@
 package co.Book.access;
-
+//추상클래스
 import java.util.ArrayList;
 import java.util.List;
 
