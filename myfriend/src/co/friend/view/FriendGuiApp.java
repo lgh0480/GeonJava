@@ -5,18 +5,14 @@ import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import co.friend.access.FriendList;
+import co.friend.access.FriendAccess;
+import co.friend.access.FriendDAO;
 import co.friend.model.Friend;
 
 public class FriendGuiApp extends JFrame {
@@ -24,13 +20,14 @@ public class FriendGuiApp extends JFrame {
 	TextField txtName, txtGubun, txtTel;
 	JButton btnInsert, btnUpdate, btnDelete, btnSelectAll, btnFindName;
 	TextArea txtList;
-	FriendList friendList = new FriendList();
+	FriendAccess friendList = new FriendDAO();
 
 	public FriendGuiApp() {
-		setTitle("친구관리");
-		setSize(400, 400);
-		init();
-		setVisible(true);
+		setTitle("친구관리"); // 위에 이름
+		setSize(400, 400);	// 전체적인테두리 사이즈
+		init();  //입력값들
+		setVisible(true); //창을 화면에 나타낼것인지 설정.
+		setResizable(false); //창 크기 조절 할수 업도록 설정.
 	}
 
 	public void init() {

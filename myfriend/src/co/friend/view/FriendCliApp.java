@@ -2,14 +2,17 @@ package co.friend.view;
 
 import java.util.List;
 
-import co.friend.access.FriendList;
+import co.friend.access.FriendAccess;
+import co.friend.access.FriendDAO;
 import co.friend.model.Friend;
 import co.friend.util.ScannerUtil;
 
 public class FriendCliApp {
 
-	FriendList friendList = new FriendList();
-
+	//FriendList friendList = new FriendList();
+	  FriendAccess friendList = new FriendDAO(); //호출해서 쓰는 인스턴스만 호출 , DB에 값을 불러오기 위한것
+	  
+	
 	public void start() {
 		int menunum;
 		do {
@@ -34,16 +37,19 @@ public class FriendCliApp {
 		friendList.insert(friend);
 	}
 
-	// 이름 수정
+	// 이름으로 검색해서 숮
 	private void update() {
 		Friend friend = new Friend();
+		System.out.print("이름 >");
 		friend.setName(ScannerUtil.readStr());
+		System.out.print("전화번호 > ");
 		friend.setTel(ScannerUtil.readStr());
 		friendList.update(friend);
 	}
 
 	// 이름으로 검색해서 삭제
 	private void delete() {
+		System.out.print("삭제할 이름을 적으시오 >");
 		String name = ScannerUtil.readStr();
 		friendList.delete(name);
 	}

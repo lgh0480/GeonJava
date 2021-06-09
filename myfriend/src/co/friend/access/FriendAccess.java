@@ -11,8 +11,13 @@ import co.friend.model.Friend;
  */
 //친구데이터를 개발 시 표준을 정해줌.
 public interface FriendAccess {
+	
+	
+	
 	//원래는 public static final이 들어가있다. 생략가능한것이지요.
 	String model ="ddd";
+	
+	
 	
 	//void insert(Friend friend); //->이것이 추상
 	
