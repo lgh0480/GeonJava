@@ -12,5 +12,7 @@ public  abstract class BookAccess {
 	public abstract Book findIsbn(String isbn);
 	//전체출력
 	public abstract List<Book> findAll();
+	//삭제
+	public abstract List<Book> delete(String name);
 		
 }

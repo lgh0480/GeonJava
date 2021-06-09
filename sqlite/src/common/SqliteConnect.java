@@ -75,7 +75,7 @@ public class SqliteConnect {
 			psmt = conn.prepareStatement(sql); // Connection가지고있는 sql실행하고 결과를 받아내는것
 			psmt.setString(1, name);
 			rs = psmt.executeQuery(); // 쿼리실행결과를 가져오는 부분 // select만 사용함
-			//nameList = new ArrayList<>();
+			// nameList = new ArrayList<>();
 			while (rs.next()) { // 건수 만큼 반복
 				// System.out.println(rs.getInt("id")+"," + rs.getString("name")); // rs. 가지고있는
 				// id를 가져옴
@@ -280,10 +280,9 @@ public class SqliteConnect {
 				// 이름조회
 				System.out.println("조회할 이름을 입력하세요");
 				String name = scanner.next();
-				
-			
+
 				ArrayList<Person> p = getPersonName(name);
-				if (p.size() == 0) {  // ArrayList 메서드 길이 비교 구문
+				if (p.size() == 0) { // ArrayList 메서드 길이 비교 구문
 					System.out.println("조회된 이름이 없습니다.");
 				} else {
 					System.out.println(p);
