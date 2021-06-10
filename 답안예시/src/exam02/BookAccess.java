@@ -13,6 +13,6 @@ public  abstract class BookAccess {
 	//전체출력
 	public abstract List<Book> findAll();
 	//삭제
-	public abstract List<Book> delete(String name);
+	public abstract void delete(Book book);
 		
 }

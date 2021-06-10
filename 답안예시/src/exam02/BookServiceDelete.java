@@ -10,9 +10,14 @@ public class BookServiceDelete implements BookService {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("삭제할 이름을 입력하시오 > ");
 		String name = scanner.next();
-		List<Book> list = books.delete(name);
-		for (Book d : list) {
-			System.out.println(list);
+		
+		for (Book b : books.books) {
+			if(b.getName().equals(name)) {
+				books.delete(b);
+				break;
+			}
+		
+			
 		}
 
 	}

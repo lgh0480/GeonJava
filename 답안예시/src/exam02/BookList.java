@@ -47,15 +47,9 @@ public class BookList extends BookAccess  {
 	}
 
 	@Override
-	public List<Book> delete(String name) {
-		List<Book> list = new ArrayList<>();
-			for(Book b: books)	{
-				if(b.getName().contains(name)) {
-					list.remove(b);
-				}
-			}
-		
-		return list;
+	public void delete(Book book) {
+		books.remove(books.indexOf(book));
+			
 	}
 
 }
