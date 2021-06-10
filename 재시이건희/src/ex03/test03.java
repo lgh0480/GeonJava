@@ -13,7 +13,7 @@ public class test03 {
 			System.out.println(a);
 		}
 	}
-	System.out.println("이미지파일 수" + cnt );
+	System.out.println("이미지파일 수 : " + cnt );
 
 		
 	

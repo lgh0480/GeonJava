@@ -8,12 +8,17 @@ import java.util.List;
  */
 public class MemoDate extends MemoAccess {
 	// 전체도서 리스트
-	ArrayList<Memo> memos = new ArrayList<Memo>();
+	List<Memo> memos;
+	public MemoDate() {
+	      memos = new ArrayList<Memo>(); 
+	   }
 
 	@Override
 	//입력
 	public void insert(Memo m) {
+		
 		memos.add(m);
+		
 	}
 
 	@Override
@@ -23,9 +28,10 @@ public class MemoDate extends MemoAccess {
 		for (Memo m : memos) {
 			if(m.getDate().contains(date)) { //메모명이 포함된 메모만
 				list.add(m);
+
 			}
 		}
-		return null;
+		return list;
 	}
 	
 	
