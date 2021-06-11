@@ -87,12 +87,14 @@ public class BoardDAO implements BoardAccess {
 		}
 	}
 
+	
+
 	// 한건 조회
 	// 글번호 -> 제목: 작성자:
 	// 내용:
 	public Board getBoard(int b_id) {
 		connect();
-		String sql = "select * from board where b_id = ?"; // ? 값을
+		sql = "select * from board where b_id = ?"; // ? 값을
 		Board b = null;
 		try {
 			psmt = conn.prepareStatement(sql); // PreparedStatment 객체 생성
@@ -112,8 +114,50 @@ public class BoardDAO implements BoardAccess {
 			close();
 		}
 		return b;
-	}
+	} //end of getBoard
 
+	//로그인 구현
+		public boolean getLogin(String u_id, String u_pass) {
+			boolean result = false;
+			connect();
+			sql = "SELECT u_pass FROM member WHERE u_id = ?";
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, u_id);
+				rs = psmt.executeQuery();
+				if(rs.next()) {
+					if(rs.getString(1).contentEquals(u_pass)) {
+						result = true; //로그인 성공
+					}else {
+						result = false;
+					}
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			return result;
+					
+		}
+	
+		//댓글 입력
+		public void insertComment( String b_content ,String b_writer,int b_parent_id) {
+			connect();
+			sql  = "insert into board (b_title, b_content, b_writer, b_parent_id) valuse('댓글',?,?,?) ";
+				try {
+					psmt = conn.prepareStatement(sql);
+					psmt.setString(1, b_content);
+					psmt.setString(2, b_writer);
+					psmt.setInt(3, b_parent_id);
+					int r =psmt.executeUpdate();
+					System.out.println( "댓글"+ r+"건이 입력되었습니다.");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+	
 	public static void connect() { // db 연결 하는것 까지만 하는것
 
 		String url = "jdbc:sqlite:C:/sqlite/db/sample.db"; // db를 쓰기위한 작업
@@ -150,5 +194,8 @@ public class BoardDAO implements BoardAccess {
 			}
 		}
 	}
+
+
+	
 
 }// end of class

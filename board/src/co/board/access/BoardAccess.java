@@ -22,6 +22,12 @@ public interface BoardAccess {
 
 	//한건 조회
 	public Board getBoard(int b_id);
-
+	
+	//댓글작성
+	
+	//로그인
+	public boolean getLogin(String u_id , String u_pass);
+	
+	public void insertComment(String b_content ,String b_writer,int b_parent_id);
 
 }

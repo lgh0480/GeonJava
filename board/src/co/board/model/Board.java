@@ -2,13 +2,23 @@ package co.board.model;
 
 //board(b_id, b_title, b_content, b_writer)
 public class Board {
+	//게시글
 	private int b_id;
 	private String b_title;
 	private String b_content;
 	private String b_writer;
+	private int b_parent_id;
 
 	public int getB_id() {
 		return b_id;
+	}
+
+	public int getB_parent_id() {
+		return b_parent_id;
+	}
+
+	public void setB_parent_id(int b_parent_id) {
+		this.b_parent_id = b_parent_id;
 	}
 
 	public void setB_id(int b_id) {
@@ -42,7 +52,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [b_id=" + b_id + ", b_title=" + b_title + ", b_content=" + b_content + ", b_writer=" + b_writer
-				+ "]";
+				+ ", b_parent_id=" + b_parent_id + "]";
 	}
 
 }
