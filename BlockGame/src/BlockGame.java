@@ -36,6 +36,29 @@ public class BlockGame {
 			int width = BALL_WIDTH;
 			int height = BALL_HEIGHT;
 
+			Point getCenter() {
+				return new Point(x + (BALL_WIDTH / 2), y + (BALL_HEIGHT / 2));
+			}
+
+			Point getBottomCenter() {
+				return new Point(x + (BALL_WIDTH / 2), y + (BALL_HEIGHT));
+
+			}
+
+			Point getTopCenter() {
+				return new Point(x + (BALL_WIDTH / 2), y);
+
+			}
+
+			Point getLeftCenter() {
+				return new Point(x, y + (BALL_HEIGHT));
+
+			}
+
+			Point getRightCenter() {
+				return new Point(x + (BALL_WIDTH), y + (BALL_HEIGHT / 2));
+
+			}
 		}
 
 		// 바 좌우로 움직이는 정보를 받기위한 클래스
@@ -170,11 +193,161 @@ public class BlockGame {
 			timer = new Timer(20, new ActionListener() {// 스윙쪽에서 지원해주는
 
 				@Override //
-				public void actionPerformed(ActionEvent e) {
-
+				public void actionPerformed(ActionEvent e) { // 타이머 이벤트
+					movement();
+					checkCollision(); // 벽이랑 바랑
+					checkCollisionBlock(); // 블록 50개 충돌
+					myPanel.repaint(); // Redraw!
 				}
 
 			});
+			timer.start(); // Start Timer!
+		}
+
+		public void movement() {
+			if (bar.x < barXTarget) {
+				bar.x += 5; // 부드러운 움직임을 위해서
+			} else if (bar.x > barXTarget) {
+				bar.x -= 5;
+			}
+
+			if (dir == 0) {
+				ball.x += ballSpeed;
+				ball.y -= ballSpeed;
+			} else if (dir == 1) { // 1: Down-Right
+				ball.x += ballSpeed;
+				ball.y += ballSpeed;
+			} else if (dir == 2) { // 2: Up-Left
+				ball.x -= ballSpeed;
+				ball.y -= ballSpeed;
+			} else if (dir == 3) { // 3: Down-Left
+				ball.x -= ballSpeed;
+				ball.y += ballSpeed;
+			}
+		}
+
+		public boolean duplRect(Rectangle rect1, Rectangle rect2) {
+			return rect1.intersects(rect2); // 체크해주는 함수 2개의 사각형
+		}
+
+		public void checkCollision() {
+			if (dir == 0) {
+				// Wall
+				if (ball.y < 0) { // 위쪽 벽 충돌 했을때
+					dir = 1;
+				}
+				if (ball.x > CANVAS_WIDTH - BALL_WIDTH) { // 오른쪽 벽
+					dir = 2;
+				}
+				// Bar
+				// none
+			} else if (dir == 1) { // 1: Down-Right
+				// Wall
+				if (ball.y > CANVAS_HEIGHT - BALL_HEIGHT - BALL_HEIGHT) {// 아랫쪽 벽 충돌했을때.
+					dir = 0;
+				}
+				if (ball.x > CANVAS_WIDTH - BALL_WIDTH) {
+					dir = 3;
+				}
+				// Bar
+				if (ball.getBottomCenter().y >= bar.y) {
+					if (duplRect(new Rectangle(ball.x, ball.y, ball.width, ball.height),
+							new Rectangle(bar.x, bar.y, bar.width, bar.height))) {
+						dir = 0;
+					}
+				}
+			} else if (dir == 2) { // 2: Up-Left
+				// wall
+				if (ball.y < 0) {// wall upper
+					dir = 3;
+
+				}
+				if (ball.x < 0) { // wall left
+					dir = 0;
+				}
+				// Bar- none
+			} else if (dir == 3) { // 3: Down-Left
+				// wall
+				if (ball.y > CANVAS_HEIGHT - BALL_HEIGHT - BALL_HEIGHT) { // wall bottom
+					dir = 2;
+
+				}
+				if (ball.x < 0) { // wall left
+					dir = 1;
+
+				}
+				if (ball.getBottomCenter().y >= bar.y) {
+					if (duplRect(new Rectangle(ball.x, ball.y, ball.width, ball.height),
+							new Rectangle(bar.x, bar.y, bar.width, bar.height))) {
+						dir = 2;
+					}
+				}
+			}
+		}
+
+		public void checkCollisionBlock() {
+			// 0 :Up-Right | 1: Down-Right | 2: Up-Left | 3: Down-Left
+			for (int i = 0; i < BLOCK_ROWS; i++) {
+				for (int j = 0; j < BLOCK_COLUMNS; j++) {
+					Block block = blocks[i][j];
+					if (block.isHidden == false) {
+						if (dir == 0) {// 0 :Up-Right
+							if (duplRect(new Rectangle(ball.x, ball.y, ball.width, ball.height),
+									new Rectangle(block.x, block.y, block.width, block.height))) {
+								if (ball.x > block.x + 2 && ball.getRightCenter().x <= block.x + block.width - 2) {
+									// 블록 아랫쪽에 부딫혔을때.
+									dir = 1;
+								} else {
+									// block left collision
+									dir = 2;
+								}
+								block.isHidden = true;
+							}
+						} else if (dir == 1) { // 1: Down-Right
+
+							if (duplRect(new Rectangle(ball.x, ball.y, ball.width, ball.height),
+									new Rectangle(block.x, block.y, block.width, block.height))) {
+								if (ball.x > block.x + 2 && ball.getRightCenter().x <= block.x + block.width - 2) {
+									// 블록 위쪽이 부딫혔을때
+									dir = 0;
+								} else {
+									// block left collision
+									dir = 3;
+								}
+								block.isHidden = true;
+							}
+						}
+					} else if (dir == 2) {// 2: Up-Left
+
+						if (duplRect(new Rectangle(ball.x, ball.y, ball.width, ball.height),
+								new Rectangle(block.x, block.y, block.width, block.height))) {
+							if (ball.x > block.x + 2 && ball.getRightCenter().x <= block.x + block.width - 2) {
+								// 블록 위쪽이 부딫혔을때
+								dir = 3;
+							} else {
+								// block top collision
+								dir = 0;
+							}
+							block.isHidden = true;
+						}
+
+					} else if (dir == 3) {// 3: Down-Left
+
+						if (duplRect(new Rectangle(ball.x, ball.y, ball.width, ball.height),
+								new Rectangle(block.x, block.y, block.width, block.height))) {
+							if (ball.x > block.x + 2 && ball.getRightCenter().x <= block.x + block.width - 2) {
+								// 블록 윗쪽 부딫혔을때
+								dir = 2;
+							} else {
+								// block right collision
+								dir = 1;
+							}
+							block.isHidden = true;
+						}
+
+					}
+				}
+			}
 		}
 	}
 
@@ -184,4 +357,4 @@ public class BlockGame {
 
 	}
 
-}
+}// end of class
