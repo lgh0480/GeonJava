@@ -85,8 +85,8 @@ public class MemoCliApp {
 	private void selectAll() {
 		System.out.println("전체조회");
 		List<Memo> list = access.FindAll();
-		for (Memo m : list) {
-			System.out.println(m);
+		for (Memo board : list) {
+			System.out.println(board);
 		}
 	}
 
@@ -106,7 +106,6 @@ public class MemoCliApp {
 		String content = scanner.nextLine();
 		
 		access.FindByContent(content);
-		
 	}
 
 	private void menuTitle() {
