@@ -14,7 +14,6 @@ import java.util.LinkedList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -25,7 +24,6 @@ import javax.swing.UIManager;
 class Hw5Panel extends JPanel { // 시작,게임,종료 화면을 넣을 메인패널 
 	private int highScore;
 	int myScore;
-	
 	Hw5PanelOpening Opening;
 	Hw5PanelPlaying Playing;
 	Hw5PanelEnding Ending;
@@ -54,12 +52,10 @@ class Hw5Panel extends JPanel { // 시작,게임,종료 화면을 넣을 메인�
 	}
 	Hw5Panel(){
 		highScore=0;
-		setLayout(null); //버튼이 없다는 뜻임.
+		setLayout(null);
 		Opening = new Hw5PanelOpening(this);
 		add(Opening);
-		
 	}
-	
 }
 
 class Hw5SubPanel extends JPanel implements Runnable, KeyListener{ //시작,게임,종료 패널의 부모 클래스인 서브패널 
@@ -68,15 +64,12 @@ class Hw5SubPanel extends JPanel implements Runnable, KeyListener{ //시작,게�
 	String PanelName;
 	Clip clip;
 	Hw5Panel hw5Panel;
-	
 	Hw5SubPanel(Hw5Panel hw5Panel){
 		this.hw5Panel = hw5Panel;
-		this.setBounds(25, 0, 750, 800); //가로위치 ,세로위치 ,가로길이 , 세로길이
-		setFocusable(true); //1 뷰의 포커스를 가질수 있게 변경, 터치 포커스 혹은 키보드 포커스로 변경하기 위함.
-		requestFocus();//2 키보드,마우스 누른애가 포커스를 가짐 (키 이벤트를 받을 컴포넌트를 강제로 설정
-		addKeyListener(this); //3 이 세트 <컴포넌트에 키 이벤트 리스너를 등록하기 위해서>
-		
-		
+		this.setBounds(25, 0, 750, 800);
+		setFocusable(true); //1
+		requestFocus();//2 키보드,마우스 누른애가 포커스를 가짐 
+		addKeyListener(this); //3 이 세트 
 		t.start();
 	}	
 	@Override
@@ -84,7 +77,7 @@ class Hw5SubPanel extends JPanel implements Runnable, KeyListener{ //시작,게�
 		while(true)
 		{
 			try {
-				Thread.sleep(200); //0.2초간 일시정지
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				return;
 			}
@@ -96,16 +89,16 @@ class Hw5SubPanel extends JPanel implements Runnable, KeyListener{ //시작,게�
 	public void printFontCenter(Graphics2D g2, float height, String str, int size, Color color, Boolean bold) {
 		Font font = new Font(Font.SANS_SERIF,Font.PLAIN,size);
 		if(bold) {font = new Font(Font.SANS_SERIF,Font.BOLD,size); }
-		FontMetrics metrics = g2.getFontMetrics(font);  // getFontMetrics:현재의 폰트의 폰트 시학을 돌려줍니다.
-		int font_width = metrics.stringWidth(str); //str매개변수의 문자열 전체 넓이를 반환함.
-		g2.setFont(font); 
+		FontMetrics metrics = g2.getFontMetrics(font);
+		int font_width = metrics.stringWidth(str);
+		g2.setFont(font);
 		g2.setColor(color);
-		g2.drawString(str, 375-font_width/2, height);  // Block Breaker 위치나둠
+		g2.drawString(str, 375-font_width/2, height);
 	}
-		
-	public void paintComponent(Graphics g) { 
+	
+	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
-		Dimension size = this.getSize(); //타입 길이 
+		Dimension size = this.getSize();
 		int w =size.width; 
 		int h =size.height;
 		GradientPaint gp = new GradientPaint(0,0,new Color(212,223,230),0,h,new Color(142,192,228));
@@ -117,7 +110,7 @@ class Hw5SubPanel extends JPanel implements Runnable, KeyListener{ //시작,게�
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_SPACE) {//스페이스바 눌렸을 경우 , getKeycode() :눌린 키의 아스키코드를 리턴 
+		if(e.getKeyCode()==KeyEvent.VK_SPACE) {//스페이스바 눌렸을 경우 
 			t.interrupt();
 			switch(PanelName) {
 				case "Opening":clip.stop(); hw5Panel.changeMode("Playing"); break;
@@ -135,7 +128,7 @@ class Hw5PanelPlaying extends Hw5SubPanel{ // 게임 패널
 	LinkedList<Block> block =new LinkedList<Block>();//블록을 넣을 연결리스트 
 	LinkedList<Ball> ball=new LinkedList<Ball>();//공을 넣을 연결리스트 
 	int x = 340, y= 670;// 라켓 위치 
-	int rWidth =140, rHeight = 10; //라켓 크기
+	int rWidth =140, rHeight = 25; //라켓 크기
 	int bWidth, bHeight;//블록 크기 
 	int score =0;
 	int stage =1;
@@ -201,10 +194,10 @@ class Hw5PanelPlaying extends Hw5SubPanel{ // 게임 패널
 		      ballcenter=(bx+br/2);
 		      dx=_dx;
 		      dy=_dy;
-		      pt[0]=new Point(bx, by+(br/2)); //좌
-		      pt[1]=new Point(bx+(br/2), by); // 상 
-		      pt[2]=new Point(bx+br, by+(br/2)); // 우
-		      pt[3]=new Point(bx+(br/2), by+br); // 하
+		      pt[0]=new Point(bx, by+(br/2));
+		      pt[1]=new Point(bx+(br/2), by);
+		      pt[2]=new Point(bx+br, by+(br/2));
+		      pt[3]=new Point(bx+(br/2), by+br);
 		   }
 		}
 
@@ -454,13 +447,12 @@ class Hw5PanelEnding extends Hw5SubPanel{ // 서브패널을 상속 받는 종�
 	    	AudioInputStream stream = AudioSystem.getAudioInputStream(url);
 	    	clip.open(stream);
 	    	clip.setFramePosition(0);
-	    	clip.start();	
+	    	clip.start();
 		} catch (Exception e) {
 		return;
 		}
 	}
 	@Override
-	// 게임이 끝나고 플레이어와 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
@@ -480,12 +472,11 @@ class Hw5PanelOpening extends Hw5SubPanel{ // 서브패널 상속 받는 시작�
 		super(hw5Panel);
 		PanelName="Opening";
 		try {
-			clip = AudioSystem.getClip();  //Clip 메서드는 특수한 데이터 라인을 나타내 , 오디오를 리얼타임에 스트림이 아니라 재생전에 로드 가능.
+			clip = AudioSystem.getClip();
 	    	URL url = getClass().getResource("opening.wav");
-	    	AudioInputStream stream = AudioSystem.getAudioInputStream(url); 
-	    	clip.open(stream); //지정한 오디오 입력 스트림내에 제시되고 있는 형식 및 오디오 데이터로 클립을 엽니다.
-	    	clip.setFramePosition(0); // 미디어의 위치를 샘플 프레임수로 설정합니다.
-
+	    	AudioInputStream stream = AudioSystem.getAudioInputStream(url);
+	    	clip.open(stream);
+	    	clip.setFramePosition(0);
 	    	clip.start();
 		} catch (Exception e) {
 		return;
@@ -497,7 +488,7 @@ class Hw5PanelOpening extends Hw5SubPanel{ // 서브패널 상속 받는 시작�
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		printFontCenter(g2, 100, "Java Programming",50,new Color(255,255,255),false);
-		printFontCenter(g2, 200, "벽돌깨기",50,new  Color(255,255,255),false);
+		printFontCenter(g2, 200, "Homework #5",50,new  Color(255,255,255),false);
 		printFontCenter(g2, 400, "Block Breaker",90,new Color(255,255,255),true);
 		if(n%2==0) {
 		printFontCenter(g2, 600, "Press SpaceBar to Play!",30,new Color(3,0,65),false);
@@ -505,22 +496,20 @@ class Hw5PanelOpening extends Hw5SubPanel{ // 서브패널 상속 받는 시작�
 	}	
 }
 
-public class Hw5 extends JFrame{   //JFrame = 타이틀이 없는 프레임 생성
+public class Hw5 extends JFrame{
 	
 	Hw5(){
-		setSize(800,800); //사이즈 생성 
-		setTitle("벽돌 부수기"); // 이름 생성 
-		add(new Hw5Panel()); // Hw5Panel를 부착
-		setResizable(false); //프레임의 크기를 사용자가 변할 수 있게 지정 
-		setVisible(true); //창을 화면에 나타낼것인지 아닌지 말해주는것!
-		setDefaultCloseOperation(EXIT_ON_CLOSE); // 메인 프레임 닫았을떄 Jfream객체도 같이 종료되게 만듬
-		
-		
+		setSize(800,800);
+		setTitle("Java Homework5");
+		add(new Hw5Panel());
+		setResizable(false);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	public static void main(String[] args) {
 		//LookAndFeel변경 
 		try {	
-			UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() ); //룩앤필 (UI 변경)
+			UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
 		 } catch (Exception e) {
 			 e.printStackTrace();
 		 }		
